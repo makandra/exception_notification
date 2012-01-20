@@ -49,12 +49,12 @@ private
     notify_about_exception(exception) if deliver_exception_notification?(exception)
   end
   
-  def deliver_exception_notification?(exception)
+  def deliver_exception_notification?(exception = nil)
     !self.class.skip_exception_notifications? && !["404", "404 Not Found"].include?(response.status.to_s) && !ignored_exception?(exception)
   end
 
   def ignored_exception?(exception)
-    (Array.wrap(ExceptionNotification::Notifier.ignore_exceptions).collect(&:to_s) & exception.class.ancestors.collect(&:to_s)).any?
+    exception and (Array.wrap(ExceptionNotification::Notifier.ignore_exceptions).collect(&:to_s) & exception.class.ancestors.collect(&:to_s)).any?
   end
   
   def notify_about_exception(exception)

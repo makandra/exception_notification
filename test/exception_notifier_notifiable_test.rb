@@ -44,4 +44,8 @@ class ExceptionNotifierNotifiableTest < Test::Unit::TestCase
     assert !@controller.send(:deliver_exception_notification?, InheritingFromIgnoredException.new)
   end
 
+  def test_should_not_crash_when_not_passing_exception_to_delvier_exception_notification?
+    @controller.send(:deliver_exception_notification?)
+  end
+
 end
