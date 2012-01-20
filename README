@@ -124,6 +124,12 @@ existing sections defined by the plugin for examples of how to write your own.
 Notification is skipped if you return a 404 status, which happens by default 
 for an ActiveRecord::RecordNotFound or ActionController::UnknownAction error.
 
+== Ignore errors
+
+You can disable notifications for additional errors by adding a line to your environment:
+  ExceptionNotification::Notifier.ignore_exceptions = %w[MyIgnoredError AnotherIgnoredError]
+
+
 == Manually notifying of error in a rescue block
 
 If your controller action manually handles an error, the notifier will never be
