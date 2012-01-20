@@ -40,7 +40,8 @@ class BackgroundExceptionNotificationTest < ActiveSupport::TestCase
   end
 
   test "mail should contain data in body" do
-    assert @mail.body.include? '* data: {:job=>"DivideWorkerJob", :payload=>"1/0"}'
+    assert @mail.body.include?('* data: {:payload=>"1/0", :job=>"DivideWorkerJob"}') || 
+      @mail.body.include?('* data: {:job=>"DivideWorkerJob", :payload=>"1/0"}')
   end
 
   test "mail should not contain any attachments" do

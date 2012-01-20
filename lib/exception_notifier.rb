@@ -45,7 +45,7 @@ class ExceptionNotifier
   private
 
   def ignored_exception(ignore_array, exception)
-    Array.wrap(ignore_array).include?(exception.class)
+    (Array.wrap(ignore_array).collect(&:to_s) & exception.class.ancestors.collect(&:to_s)).any?
   end
 
   def from_crawler(ignore_array, agent)
