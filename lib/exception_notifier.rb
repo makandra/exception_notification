@@ -7,6 +7,7 @@ class ExceptionNotifier
       exceptions << ::ActiveRecord::RecordNotFound if defined? ::ActiveRecord::RecordNotFound
       exceptions << ::AbstractController::ActionNotFound if defined? ::AbstractController::ActionNotFound
       exceptions << ::ActionController::RoutingError if defined? ::ActionController::RoutingError
+      exceptions << 'ActiveRecord::RecordNotFound' #keep both, this one to avoid load order issues, the above one for backward compatibility
     end
   end
 
