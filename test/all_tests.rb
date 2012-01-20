@@ -1,0 +1,2 @@
+require 'exception_notifier_helper_test'
+require 'exception_notifier_notifiable_test'

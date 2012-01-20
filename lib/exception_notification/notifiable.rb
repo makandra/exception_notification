@@ -46,11 +46,15 @@ private
 
   def rescue_action_in_public(exception)
     super
-    notify_about_exception(exception) if deliver_exception_notification?
+    notify_about_exception(exception) if deliver_exception_notification?(exception)
   end
   
-  def deliver_exception_notification?
-    !self.class.skip_exception_notifications? && ![404, "404 Not Found"].include?(response.status.to_s)
+  def deliver_exception_notification?(exception)
+    !self.class.skip_exception_notifications? && !["404", "404 Not Found"].include?(response.status.to_s) && !ignored_exception?(exception)
+  end
+
+  def ignored_exception?(exception)
+    (Array.wrap(ExceptionNotification::Notifier.ignore_exceptions).collect(&:to_s) & exception.class.ancestors.collect(&:to_s)).any?
   end
   
   def notify_about_exception(exception)

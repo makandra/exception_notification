@@ -41,6 +41,9 @@ class ExceptionNotification::Notifier < ActionMailer::Base
   @@sections = %w(request session environment backtrace)
   cattr_accessor :sections
 
+  @@ignore_exceptions = []
+  cattr_accessor :ignore_exceptions
+
   def self.reloadable?() false end
 
   def exception_notification(exception, controller, request, data={})
